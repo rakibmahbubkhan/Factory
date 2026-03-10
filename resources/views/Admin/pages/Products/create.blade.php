@@ -24,10 +24,14 @@
                                 <input type="text" name="product_name" class="form-control" value="{{ old('product_name') }}" required>
                             </div>
 
-                            <div class="form-group">
-                                <label for="description">Description</label>
-                                <textarea name="description" class="form-control" rows="4">.</textarea>
-                            </div>
+                               <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <x-forms.tinymce-editor 
+                                        name="description" 
+                                        class="form-control"
+                                        rows="4"
+                                    >.</x-forms.tinymce-editor>
+                                </div>
 
                             <div class="form-group">
                                 <label for="image1">Image 1</label>

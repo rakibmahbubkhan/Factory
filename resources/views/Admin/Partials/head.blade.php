@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{ asset('/Admin/assets/css/style.css') }}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('/Admin/assets/images/favicon.png') }}" />
+        <x-head.tinymce-config/>
+
 </head>
 <body style="background: #f0f3f6;">
 

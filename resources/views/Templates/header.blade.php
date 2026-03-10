@@ -17,6 +17,8 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:type" content="website">
 
+    <x-head.tinymce-config/>
+
     <!-- Favicon -->
     <link href="{{ asset('storage/' . $company->logo) }}" rel="icon" type="image/x-icon">
 

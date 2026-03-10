@@ -27,7 +27,12 @@
 
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea name="description" class="form-control" rows="4">{{ old('description', $product->description) }}</textarea>
+                                <x-forms.tinymce-editor 
+                                    name="description" 
+                                    class="form-control"
+                                    rows="4"
+                                    value="{{ old('description', $product->description) }}"
+                                />
                             </div>
 
                             <div class="form-group">
