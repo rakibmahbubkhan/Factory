@@ -105,6 +105,29 @@ class AdminProductController extends Controller
 //        return view('Product.productDetail', compact('product'));
 //    }
 
+    public function updateDescription(Request $request, Product $product)
+    {
+        // Optional: Add authorization check
+        // $this->authorize('update', $product);
+        
+        $request->validate([
+            'description' => 'required|string'
+        ]);
+        
+        $product->description = $request->description;
+        $product->save();
+        
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Description updated successfully',
+                'description' => $product->description
+            ]);
+        }
+        
+        return redirect()->back()->with('success', 'Description updated successfully');
+    }
+
 
     public function __construct()
     {

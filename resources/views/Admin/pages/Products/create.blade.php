@@ -25,13 +25,10 @@
                             </div>
 
                                <div class="form-group">
-                                    <label for="description">Description</label>
-                                    <x-forms.tinymce-editor 
-                                        name="description" 
-                                        class="form-control"
-                                        rows="4"
-                                    >.</x-forms.tinymce-editor>
+                                    <label for="myeditorinstance">Description</label>
+                                    <textarea id="myeditorinstance" name="description" class="form-control">{{ old('description', $product->description) }}</textarea>
                                 </div>
+
 
                             <div class="form-group">
                                 <label for="image1">Image 1</label>
@@ -95,3 +92,37 @@
         </div>
     </div>
 @endsection
+
+
+@push('scripts')
+<script src="https://cdn.tiny.cloud/1/YOUR_API_KEY/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: '#myeditorinstance',
+        height: 300,
+        menubar: true,
+        plugins: [
+            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+            'insertdatetime', 'media', 'table', 'help', 'wordcount'
+        ],
+        toolbar: 'undo redo | blocks | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | help',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }',
+        
+        // Important: Ensure form submission works
+        setup: function (editor) {
+            editor.on('change', function () {
+                editor.save(); // Save content to textarea on change
+            });
+        }
+    });
+
+    // Ensure form submission captures TinyMCE content
+    document.querySelector('form').addEventListener('submit', function() {
+        tinymce.triggerSave();
+    });
+</script>
+@endpush

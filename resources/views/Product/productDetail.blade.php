@@ -647,17 +647,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
                 
-                <!-- Description -->
-                <div class="description-section">
-                    <h3 class="section-title">
-                        <i class="fas fa-file-alt me-2"></i>
-                        <span>Product Description</span>
-                    </h3>
-                    
-                    <div class="description-content">
-                        <p>{{ $product->description }}</p>
-                    </div>
-                </div>
+
                 
                 <!-- Contact Information -->
                 <div class="contact-section">
@@ -724,8 +714,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
         </div>
+            <!-- Description -->
+<div class="description-section mt-5">
+    <h3 class="section-title">
+        <i class="fas fa-file-alt me-2"></i>
+        <span>Product Description</span>
+    </h3>
+    
+    <div class="description-content">
+        {!! $product->description !!}
     </div>
+</div>
+    </div>
+
+
 </section>
+
+
 
 <!-- Related Products -->
 @if(isset($relatedProducts) && $relatedProducts->count() > 0)

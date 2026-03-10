@@ -104,7 +104,7 @@ Route::get('/admin/contacts/{contact}/reply', [ContactController::class, 'replyF
 Route::post('/admin/contacts/{contact}/reply', [ContactController::class, 'reply'])->name('Admin.contact.reply')->middleware('isAdmin');
 Route::delete('/admin/contacts/{contact}', [ContactController::class, 'destroy'])->name('Admin.contact.destroy')->middleware('isAdmin');
 
-
+Route::put('/products/{product}/description', [ProductController::class, 'updateDescription'])->name('products.update-description');
 
 
 
