@@ -81,489 +81,96 @@
 <!-- Product Content -->
 <section class="product-content-section">
     <div class="container">
-        <div class="product-layout">
+        <div class="product-layout mb-5">
             <!-- Product Gallery -->
             <div class="product-gallery">
-    <!-- Main Image -->
-    <div class="main-image-container">
-        <div class="main-image-wrapper">
-            @if($product->image1)
-            <img id="mainProductImage" 
-                 src="{{ asset('storage/' . $product->image1) }}" 
-                 alt="{{ $product->product_name }}"
-                 class="main-image"
-                 loading="eager">
-            @endif
-            
-            <!-- Image Zoom (Hidden by default) -->
-            <div class="image-zoom" id="imageZoom" style="display: none;">
-                <div class="zoom-container">
-                    <img id="zoomImage" src="" alt="Zoom view">
+                <!-- Main Image -->
+                <div class="main-image-container">
+                    <div class="main-image-wrapper">
+                        @if($product->image1)
+                        <img id="mainProductImage" 
+                            src="{{ asset('storage/' . $product->image1) }}" 
+                            alt="{{ $product->product_name }}"
+                            class="main-image"
+                            loading="eager">
+                        @endif
+                        
+                        <!-- Image Zoom (Hidden by default) -->
+                        <div class="image-zoom" id="imageZoom" style="display: none;">
+                            <div class="zoom-container">
+                                <img id="zoomImage" src="" alt="Zoom view">
+                            </div>
+                        </div>
+                        
+                        <!-- Image Controls -->
+                        <div class="image-controls">
+                            <button class="control-btn zoom-in" id="zoomInBtn" aria-label="Zoom in">
+                                <i class="fas fa-search-plus"></i>
+                            </button>
+                            <button class="control-btn fullscreen" id="fullscreenBtn" aria-label="Fullscreen view">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Thumbnail Gallery -->
+                <div class="thumbnail-gallery">
+                    <div class="thumbnail-track" id="thumbnailTrack">
+                        @if($product->image1)
+                        <div class="thumbnail-wrapper active" data-image="{{ asset('storage/' . $product->image1) }}">
+                            <img src="{{ asset('storage/' . $product->image1) }}" 
+                                alt="Image 1" 
+                                loading="lazy">
+                        </div>
+                        @endif
+                        
+                        @if($product->image2)
+                        <div class="thumbnail-wrapper" data-image="{{ asset('storage/' . $product->image2) }}">
+                            <img src="{{ asset('storage/' . $product->image2) }}" 
+                                alt="Image 2" 
+                                loading="lazy">
+                        </div>
+                        @endif
+                        
+                        @if($product->image3)
+                        <div class="thumbnail-wrapper" data-image="{{ asset('storage/' . $product->image3) }}">
+                            <img src="{{ asset('storage/' . $product->image3) }}" 
+                                alt="Image 3" 
+                                loading="lazy">
+                        </div>
+                        @endif
+                        
+                        @if($product->image4)
+                        <div class="thumbnail-wrapper" data-image="{{ asset('storage/' . $product->image4) }}">
+                            <img src="{{ asset('storage/' . $product->image4) }}" 
+                                alt="Image 4" 
+                                loading="lazy">
+                        </div>
+                        @endif
+                    </div>
+                    
+                    @if(($product->image2 ? 1 : 0) + ($product->image3 ? 1 : 0) + ($product->image4 ? 1 : 0) > 3)
+                    <div class="thumbnail-controls">
+                        <button class="thumb-prev" id="thumbPrevBtn" aria-label="Previous thumbnails">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="thumb-next" id="thumbNextBtn" aria-label="Next thumbnails">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    @endif
+                </div>
+                
+                <!-- Image Counter -->
+                <div class="image-counter my-5">
+                    <i class="fas fa-images"></i>
+                    <span id="currentImage">1</span> / 
+                    <span id="totalImages">{{ ($product->image1 ? 1 : 0) + ($product->image2 ? 1 : 0) + ($product->image3 ? 1 : 0) + ($product->image4 ? 1 : 0) }}</span>
                 </div>
             </div>
-            
-            <!-- Image Controls -->
-            <div class="image-controls">
-                <button class="control-btn zoom-in" id="zoomInBtn" aria-label="Zoom in">
-                    <i class="fas fa-search-plus"></i>
-                </button>
-                <button class="control-btn fullscreen" id="fullscreenBtn" aria-label="Fullscreen view">
-                    <i class="fas fa-expand"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Thumbnail Gallery -->
-    <div class="thumbnail-gallery">
-        <div class="thumbnail-track" id="thumbnailTrack">
-            @if($product->image1)
-            <div class="thumbnail-wrapper active" data-image="{{ asset('storage/' . $product->image1) }}">
-                <img src="{{ asset('storage/' . $product->image1) }}" 
-                     alt="Image 1" 
-                     loading="lazy">
-            </div>
-            @endif
-            
-            @if($product->image2)
-            <div class="thumbnail-wrapper" data-image="{{ asset('storage/' . $product->image2) }}">
-                <img src="{{ asset('storage/' . $product->image2) }}" 
-                     alt="Image 2" 
-                     loading="lazy">
-            </div>
-            @endif
-            
-            @if($product->image3)
-            <div class="thumbnail-wrapper" data-image="{{ asset('storage/' . $product->image3) }}">
-                <img src="{{ asset('storage/' . $product->image3) }}" 
-                     alt="Image 3" 
-                     loading="lazy">
-            </div>
-            @endif
-            
-            @if($product->image4)
-            <div class="thumbnail-wrapper" data-image="{{ asset('storage/' . $product->image4) }}">
-                <img src="{{ asset('storage/' . $product->image4) }}" 
-                     alt="Image 4" 
-                     loading="lazy">
-            </div>
-            @endif
-        </div>
-        
-        @if(($product->image2 ? 1 : 0) + ($product->image3 ? 1 : 0) + ($product->image4 ? 1 : 0) > 3)
-        <div class="thumbnail-controls">
-            <button class="thumb-prev" id="thumbPrevBtn" aria-label="Previous thumbnails">
-                <i class="fas fa-chevron-left"></i>
-            </button>
-            <button class="thumb-next" id="thumbNextBtn" aria-label="Next thumbnails">
-                <i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
-        @endif
-    </div>
-    
-    <!-- Image Counter -->
-    <div class="image-counter">
-        <i class="fas fa-images"></i>
-        <span id="currentImage">1</span> / 
-        <span id="totalImages">{{ ($product->image1 ? 1 : 0) + ($product->image2 ? 1 : 0) + ($product->image3 ? 1 : 0) + ($product->image4 ? 1 : 0) }}</span>
-    </div>
-</div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize variables
-    const mainImage = document.getElementById('mainProductImage');
-    const thumbnails = document.querySelectorAll('.thumbnail-wrapper');
-    const currentImageSpan = document.getElementById('currentImage');
-    const zoomImage = document.getElementById('zoomImage');
-    const imageZoom = document.getElementById('imageZoom');
-    const zoomInBtn = document.getElementById('zoomInBtn');
-    const fullscreenBtn = document.getElementById('fullscreenBtn');
-    const thumbnailTrack = document.getElementById('thumbnailTrack');
-    const thumbPrevBtn = document.getElementById('thumbPrevBtn');
-    const thumbNextBtn = document.getElementById('thumbNextBtn');
-    
-    let currentImageIndex = 0;
-    const images = [];
-    
-    // Collect all available images
-    thumbnails.forEach((thumb, index) => {
-        const imgUrl = thumb.dataset.image;
-        if (imgUrl) {
-            images.push(imgUrl);
-            // Add click event to each thumbnail
-            thumb.addEventListener('click', function() {
-                setActiveImage(index);
-                scrollThumbnailIntoView(index);
-            });
-        }
-    });
-    
-    // Set initial state
-    function setActiveImage(index) {
-        if (index < 0 || index >= images.length) return;
-        
-        currentImageIndex = index;
-        
-        // Update main image
-        if (mainImage) {
-            mainImage.src = images[index];
-            mainImage.alt = `Image ${index + 1}`;
-        }
-        
-        // Update zoom image
-        if (zoomImage) {
-            zoomImage.src = images[index];
-        }
-        
-        // Update thumbnails
-        thumbnails.forEach((thumb, i) => {
-            if (thumb) {
-                thumb.classList.toggle('active', i === index);
-            }
-        });
-        
-        // Update counter
-        if (currentImageSpan) {
-            currentImageSpan.textContent = index + 1;
-        }
-    }
-    
-    // Scroll thumbnail into view
-    function scrollThumbnailIntoView(index) {
-        if (thumbnails[index] && thumbnailTrack) {
-            const thumbnail = thumbnails[index];
-            const trackRect = thumbnailTrack.getBoundingClientRect();
-            const thumbRect = thumbnail.getBoundingClientRect();
-            
-            if (thumbRect.left < trackRect.left) {
-                thumbnailTrack.scrollLeft -= (trackRect.left - thumbRect.left + 10);
-            } else if (thumbRect.right > trackRect.right) {
-                thumbnailTrack.scrollLeft += (thumbRect.right - trackRect.right + 10);
-            }
-        }
-    }
-    
-    // Initialize with first image
-    if (images.length > 0) {
-        setActiveImage(0);
-    }
-    
-    // Zoom functionality
-    let zoomLevel = 1;
-    const maxZoomLevel = 3;
-    const zoomStep = 0.5;
-    
-    if (zoomInBtn && mainImage) {
-        zoomInBtn.addEventListener('click', function() {
-            if (zoomLevel < maxZoomLevel) {
-                zoomLevel += zoomStep;
-            } else {
-                zoomLevel = 1;
-            }
-            
-            if (zoomImage) {
-                zoomImage.style.transform = `scale(${zoomLevel})`;
-                zoomImage.style.transformOrigin = 'center center';
-            }
-            
-            // Show zoom effect on main image
-            mainImage.style.transform = `scale(${zoomLevel})`;
-            mainImage.style.transformOrigin = 'center center';
-            mainImage.style.transition = 'transform 0.3s ease';
-            
-            // Reset after animation
-            setTimeout(() => {
-                mainImage.style.transform = 'scale(1)';
-            }, 300);
-        });
-    }
-    
-    // Mouse hover zoom for desktop
-    if (mainImage && window.innerWidth > 768) {
-        mainImage.addEventListener('mouseenter', function() {
-            if (imageZoom && zoomImage) {
-                zoomImage.src = this.src;
-                imageZoom.style.display = 'block';
-                
-                // Position the zoom container
-                const rect = this.getBoundingClientRect();
-                imageZoom.style.top = `${rect.top}px`;
-                imageZoom.style.left = `${rect.right + 20}px`;
-            }
-        });
-        
-        mainImage.addEventListener('mousemove', function(e) {
-            if (!imageZoom || !zoomImage) return;
-            
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const xPercent = (x / this.offsetWidth) * 100;
-            const yPercent = (y / this.offsetHeight) * 100;
-            
-            zoomImage.style.transformOrigin = `${xPercent}% ${yPercent}%`;
-            zoomImage.style.transform = `scale(${zoomLevel})`;
-        });
-        
-        mainImage.addEventListener('mouseleave', function() {
-            if (imageZoom) {
-                imageZoom.style.display = 'none';
-            }
-        });
-    }
-    
-    // Fullscreen functionality
-    if (fullscreenBtn) {
-        fullscreenBtn.addEventListener('click', function() {
-            openFullscreenViewer();
-        });
-    }
-    
-    function openFullscreenViewer() {
-        const viewer = document.createElement('div');
-        viewer.className = 'fullscreen-viewer';
-        viewer.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: zoom-out;
-        `;
-        
-        const img = document.createElement('img');
-        img.src = images[currentImageIndex];
-        img.alt = `Fullscreen view - Image ${currentImageIndex + 1}`;
-        img.style.cssText = `
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            cursor: default;
-        `;
-        
-        // Close button
-        const closeBtn = document.createElement('button');
-        closeBtn.innerHTML = '<i class="fas fa-times"></i>';
-        closeBtn.style.cssText = `
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 94, 20, 0.9);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-        `;
-        closeBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            document.body.removeChild(viewer);
-            document.body.style.overflow = 'auto';
-        });
-        
-        // Navigation buttons
-        if (images.length > 1) {
-            // Previous button
-            const prevBtn = document.createElement('button');
-            prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
-            prevBtn.style.cssText = `
-                position: absolute;
-                left: 20px;
-                top: 50%;
-                transform: translateY(-50%);
-                background: rgba(255, 255, 255, 0.2);
-                color: white;
-                border: none;
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-                font-size: 24px;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                backdrop-filter: blur(10px);
-                z-index: 10000;
-            `;
-            prevBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                let newIndex = currentImageIndex - 1;
-                if (newIndex < 0) newIndex = images.length - 1;
-                setActiveImage(newIndex);
-                img.src = images[currentImageIndex];
-            });
-            
-            // Next button
-            const nextBtn = document.createElement('button');
-            nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
-            nextBtn.style.cssText = `
-                position: absolute;
-                right: 20px;
-                top: 50%;
-                transform: translateY(-50%);
-                background: rgba(255, 255, 255, 0.2);
-                color: white;
-                border: none;
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-                font-size: 24px;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                backdrop-filter: blur(10px);
-                z-index: 10000;
-            `;
-            nextBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                let newIndex = currentImageIndex + 1;
-                if (newIndex >= images.length) newIndex = 0;
-                setActiveImage(newIndex);
-                img.src = images[currentImageIndex];
-            });
-            
-            viewer.appendChild(prevBtn);
-            viewer.appendChild(nextBtn);
-        }
-        
-        // Counter display
-        const counter = document.createElement('div');
-        counter.textContent = `${currentImageIndex + 1} / ${images.length}`;
-        counter.style.cssText = `
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            color: white;
-            font-size: 18px;
-            font-weight: 600;
-            z-index: 10000;
-        `;
-        
-        viewer.appendChild(img);
-        viewer.appendChild(closeBtn);
-        viewer.appendChild(counter);
-        
-        // Close on escape key
-        document.addEventListener('keydown', function closeOnEscape(e) {
-            if (e.key === 'Escape') {
-                document.body.removeChild(viewer);
-                document.body.style.overflow = 'auto';
-                document.removeEventListener('keydown', closeOnEscape);
-            }
-        });
-        
-        // Close on background click
-        viewer.addEventListener('click', function(e) {
-            if (e.target === viewer) {
-                document.body.removeChild(viewer);
-                document.body.style.overflow = 'auto';
-            }
-        });
-        
-        document.body.appendChild(viewer);
-        document.body.style.overflow = 'hidden';
-    }
-    
-    // Thumbnail navigation
-    if (thumbPrevBtn && thumbNextBtn && thumbnailTrack) {
-        const scrollAmount = 120;
-        
-        thumbPrevBtn.addEventListener('click', function() {
-            thumbnailTrack.scrollLeft -= scrollAmount;
-        });
-        
-        thumbNextBtn.addEventListener('click', function() {
-            thumbnailTrack.scrollLeft += scrollAmount;
-        });
-    }
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowLeft') {
-            let newIndex = currentImageIndex - 1;
-            if (newIndex < 0) newIndex = images.length - 1;
-            setActiveImage(newIndex);
-        } else if (e.key === 'ArrowRight') {
-            let newIndex = currentImageIndex + 1;
-            if (newIndex >= images.length) newIndex = 0;
-            setActiveImage(newIndex);
-        }
-    });
-    
-    // Touch/swipe support for mobile
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    if (mainImage) {
-        mainImage.addEventListener('touchstart', function(e) {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-        
-        mainImage.addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-    }
-    
-    function handleSwipe() {
-        const minSwipeDistance = 50;
-        const distance = touchStartX - touchEndX;
-        
-        if (Math.abs(distance) < minSwipeDistance) return;
-        
-        if (distance > 0) {
-            // Swipe left - next image
-            let newIndex = currentImageIndex + 1;
-            if (newIndex >= images.length) newIndex = 0;
-            setActiveImage(newIndex);
-        } else {
-            // Swipe right - previous image
-            let newIndex = currentImageIndex - 1;
-            if (newIndex < 0) newIndex = images.length - 1;
-            setActiveImage(newIndex);
-        }
-    }
-    
-    // Update thumbnail controls visibility based on content
-    function updateThumbnailControls() {
-        if (thumbnailTrack && thumbPrevBtn && thumbNextBtn) {
-            const hasOverflow = thumbnailTrack.scrollWidth > thumbnailTrack.clientWidth;
-            
-            if (hasOverflow) {
-                thumbPrevBtn.style.display = 'flex';
-                thumbNextBtn.style.display = 'flex';
-            } else {
-                thumbPrevBtn.style.display = 'none';
-                thumbNextBtn.style.display = 'none';
-            }
-        }
-    }
-    
-    // Check on load and resize
-    window.addEventListener('load', updateThumbnailControls);
-    window.addEventListener('resize', updateThumbnailControls);
-    
-    // Initial check
-    setTimeout(updateThumbnailControls, 100);
-});
-</script>
+
             
             <!-- Product Details -->
             <div class="product-details">
@@ -714,17 +321,150 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
         </div>
+
             <!-- Description -->
-<div class="description-section mt-5">
-    <h3 class="section-title">
-        <i class="fas fa-file-alt me-2"></i>
-        <span>Product Description</span>
+        <div class="description-section mt-5">
+            <h3 class="section-title"><i class="fas fa-file-alt me-2"></i> Product Description</h3>
+            <div class="description-content">{!! $product->description !!}</div>
+        </div>
+
+        
+
+        @php
+            $sections = [
+                ['title' => 'Key Features', 'data' => $product->key_features, 'icon' => 'fa-star'],
+                ['title' => 'Applications', 'data' => $product->applications, 'icon' => 'fa-tools'],
+                ['title' => 'Benefits', 'data' => $product->benefits, 'icon' => 'fa-thumbs-up']
+            ];
+        @endphp
+
+        @foreach($sections as $section)
+            @if($section['data'])
+                <div class="description-section mt-4">
+                    <h3 class="section-title">
+                        <i class="fas {{ $section['icon'] }} me-2"></i>
+                        <span>{{ $section['title'] }}</span>
+                    </h3>
+                    <ul class="list-unstyled ms-3">
+                        @foreach(explode(',', $section['data']) as $line)
+                            @if(trim($line))
+                                <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> {{ trim($line) }}</li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        @endforeach
+
+        @if($product->faqs->count() > 0)
+<div class="faq-section mt-5">
+    <h3 class="section-title mb-4 pb-2" style="border-bottom: 2px solid #e9ecef;">
+        <i class="fas fa-question-circle me-2 text-success"></i>
+        <span class="fw-bold">Frequently Asked Questions</span>
     </h3>
-    
-    <div class="description-content">
-        {!! $product->description !!}
+    <div id="productFaqAccordion">
+        @foreach($product->faqs as $index => $faq)
+            <div class="card shadow-sm mb-3 border-0 rounded-3">
+                <div class="card-header bg-white border-0 p-0" id="heading{{ $index }}">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link w-100 text-start text-decoration-none p-3 fw-bold collapsed" 
+                                type="button" 
+                                data-toggle="collapse" 
+                                data-target="#collapse{{ $index }}" 
+                                aria-expanded="false" 
+                                aria-controls="collapse{{ $index }}">
+                            Q: {{ $faq->question }}
+                        </button>
+                    </h2>
+                </div>
+                <div id="collapse{{ $index }}" 
+                     class="collapse" 
+                     aria-labelledby="heading{{ $index }}" 
+                     data-parent="#productFaqAccordion">
+                    <div class="card-body bg-light rounded-bottom-3">
+                        <div class="d-flex">
+                            <i class="fas fa-reply-all text-success me-3 mt-1"></i>
+                            <p class="mb-0 text-secondary">{{ $faq->answer }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
 </div>
+
+<style>
+    .faq-section .card-header button {
+        color: #28a745;  /* Green color for questions */
+        font-weight: 600;
+        text-align: left !important;
+        justify-content: flex-start;
+    }
+    .faq-section .card-header button:hover {
+        background-color: #f8f9fa;
+    }
+    .faq-section .card-header button:focus {
+        text-decoration: none;
+        outline: none;
+        box-shadow: none;
+    }
+    .faq-section .card-header button.collapsed {
+        color: #28a745;  /* Keep green even when collapsed */
+    }
+    .faq-section .card-header button:not(.collapsed) {
+        color: #1e7e34;  /* Darker green when expanded */
+    }
+    .faq-section .card {
+        transition: transform 0.2s ease;
+    }
+    .faq-section .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+    }
+    /* Ensure button content is left aligned */
+    .faq-section .card-header .btn-link {
+        display: flex;
+        align-items: center;
+        text-align: left !important;
+    }
+    /* Rotate icon when expanded (optional) */
+    .faq-section .card-header button:not(.collapsed)::before {
+        content: "▼";
+        font-size: 12px;
+        margin-right: 10px;
+        transition: transform 0.2s;
+    }
+    .faq-section .card-header button.collapsed::before {
+        content: "▶";
+        font-size: 12px;
+        margin-right: 10px;
+        transition: transform 0.2s;
+    }
+</style>
+
+<script>
+    // Ensure all accordions are collapsed by default
+    document.addEventListener('DOMContentLoaded', function() {
+        // If you're using Bootstrap 4 with jQuery
+        if (typeof $ !== 'undefined') {
+            $('.collapse').collapse('hide');
+        }
+        
+        // For pure JavaScript (Bootstrap 5)
+        if (typeof bootstrap !== 'undefined') {
+            var collapseElements = document.querySelectorAll('.collapse');
+            collapseElements.forEach(function(el) {
+                var collapse = new bootstrap.Collapse(el, {
+                    toggle: false,
+                    parent: '#productFaqAccordion'
+                });
+                collapse.hide();
+            });
+        }
+    });
+</script>
+@endif
+
     </div>
 
 
@@ -1346,6 +1086,15 @@ document.addEventListener('DOMContentLoaded', function() {
     background: var(--light);
     border-radius: var(--radius-xl);
 }
+.feature-list ul, .application-list ul, .benefits-list ul {
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+.feature-list li, .application-list li, .benefits-list li {
+    margin-bottom: 10px;
+    color: var(--dark);
+}
 
 .description-content {
     line-height: 1.8;
@@ -1360,7 +1109,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 
 .contact-info {
-    display: flex;
+    
     flex-direction: column;
     gap: 20px;
 }
@@ -2322,6 +2071,399 @@ document.addEventListener('DOMContentLoaded', function() {
             closeFullscreen();
         }
     });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize variables
+    const mainImage = document.getElementById('mainProductImage');
+    const thumbnails = document.querySelectorAll('.thumbnail-wrapper');
+    const currentImageSpan = document.getElementById('currentImage');
+    const zoomImage = document.getElementById('zoomImage');
+    const imageZoom = document.getElementById('imageZoom');
+    const zoomInBtn = document.getElementById('zoomInBtn');
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const thumbnailTrack = document.getElementById('thumbnailTrack');
+    const thumbPrevBtn = document.getElementById('thumbPrevBtn');
+    const thumbNextBtn = document.getElementById('thumbNextBtn');
+    
+    let currentImageIndex = 0;
+    const images = [];
+    
+    // Collect all available images
+    thumbnails.forEach((thumb, index) => {
+        const imgUrl = thumb.dataset.image;
+        if (imgUrl) {
+            images.push(imgUrl);
+            // Add click event to each thumbnail
+            thumb.addEventListener('click', function() {
+                setActiveImage(index);
+                scrollThumbnailIntoView(index);
+            });
+        }
+    });
+    
+    // Set initial state
+    function setActiveImage(index) {
+        if (index < 0 || index >= images.length) return;
+        
+        currentImageIndex = index;
+        
+        // Update main image
+        if (mainImage) {
+            mainImage.src = images[index];
+            mainImage.alt = `Image ${index + 1}`;
+        }
+        
+        // Update zoom image
+        if (zoomImage) {
+            zoomImage.src = images[index];
+        }
+        
+        // Update thumbnails
+        thumbnails.forEach((thumb, i) => {
+            if (thumb) {
+                thumb.classList.toggle('active', i === index);
+            }
+        });
+        
+        // Update counter
+        if (currentImageSpan) {
+            currentImageSpan.textContent = index + 1;
+        }
+    }
+    
+    // Scroll thumbnail into view
+    function scrollThumbnailIntoView(index) {
+        if (thumbnails[index] && thumbnailTrack) {
+            const thumbnail = thumbnails[index];
+            const trackRect = thumbnailTrack.getBoundingClientRect();
+            const thumbRect = thumbnail.getBoundingClientRect();
+            
+            if (thumbRect.left < trackRect.left) {
+                thumbnailTrack.scrollLeft -= (trackRect.left - thumbRect.left + 10);
+            } else if (thumbRect.right > trackRect.right) {
+                thumbnailTrack.scrollLeft += (thumbRect.right - trackRect.right + 10);
+            }
+        }
+    }
+    
+    // Initialize with first image
+    if (images.length > 0) {
+        setActiveImage(0);
+    }
+    
+    // Zoom functionality
+    let zoomLevel = 1;
+    const maxZoomLevel = 3;
+    const zoomStep = 0.5;
+    
+    if (zoomInBtn && mainImage) {
+        zoomInBtn.addEventListener('click', function() {
+            if (zoomLevel < maxZoomLevel) {
+                zoomLevel += zoomStep;
+            } else {
+                zoomLevel = 1;
+            }
+            
+            if (zoomImage) {
+                zoomImage.style.transform = `scale(${zoomLevel})`;
+                zoomImage.style.transformOrigin = 'center center';
+            }
+            
+            // Show zoom effect on main image
+            mainImage.style.transform = `scale(${zoomLevel})`;
+            mainImage.style.transformOrigin = 'center center';
+            mainImage.style.transition = 'transform 0.3s ease';
+            
+            // Reset after animation
+            setTimeout(() => {
+                mainImage.style.transform = 'scale(1)';
+            }, 300);
+        });
+    }
+    
+    // Mouse hover zoom for desktop
+    if (mainImage && window.innerWidth > 768) {
+        mainImage.addEventListener('mouseenter', function() {
+            if (imageZoom && zoomImage) {
+                zoomImage.src = this.src;
+                imageZoom.style.display = 'block';
+                
+                // Position the zoom container
+                const rect = this.getBoundingClientRect();
+                imageZoom.style.top = `${rect.top}px`;
+                imageZoom.style.left = `${rect.right + 20}px`;
+            }
+        });
+        
+        mainImage.addEventListener('mousemove', function(e) {
+            if (!imageZoom || !zoomImage) return;
+            
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const xPercent = (x / this.offsetWidth) * 100;
+            const yPercent = (y / this.offsetHeight) * 100;
+            
+            zoomImage.style.transformOrigin = `${xPercent}% ${yPercent}%`;
+            zoomImage.style.transform = `scale(${zoomLevel})`;
+        });
+        
+        mainImage.addEventListener('mouseleave', function() {
+            if (imageZoom) {
+                imageZoom.style.display = 'none';
+            }
+        });
+    }
+    
+    // Fullscreen functionality
+    if (fullscreenBtn) {
+        fullscreenBtn.addEventListener('click', function() {
+            openFullscreenViewer();
+        });
+    }
+    
+    function openFullscreenViewer() {
+        const viewer = document.createElement('div');
+        viewer.className = 'fullscreen-viewer';
+        viewer.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+        `;
+        
+        const img = document.createElement('img');
+        img.src = images[currentImageIndex];
+        img.alt = `Fullscreen view - Image ${currentImageIndex + 1}`;
+        img.style.cssText = `
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            cursor: default;
+        `;
+        
+        // Close button
+        const closeBtn = document.createElement('button');
+        closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+        closeBtn.style.cssText = `
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 94, 20, 0.9);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        `;
+        closeBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            document.body.removeChild(viewer);
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Navigation buttons
+        if (images.length > 1) {
+            // Previous button
+            const prevBtn = document.createElement('button');
+            prevBtn.innerHTML = '<i class="fas fa-chevron-left"></i>';
+            prevBtn.style.cssText = `
+                position: absolute;
+                left: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: rgba(255, 255, 255, 0.2);
+                color: white;
+                border: none;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                font-size: 24px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                backdrop-filter: blur(10px);
+                z-index: 10000;
+            `;
+            prevBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                let newIndex = currentImageIndex - 1;
+                if (newIndex < 0) newIndex = images.length - 1;
+                setActiveImage(newIndex);
+                img.src = images[currentImageIndex];
+            });
+            
+            // Next button
+            const nextBtn = document.createElement('button');
+            nextBtn.innerHTML = '<i class="fas fa-chevron-right"></i>';
+            nextBtn.style.cssText = `
+                position: absolute;
+                right: 20px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: rgba(255, 255, 255, 0.2);
+                color: white;
+                border: none;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                font-size: 24px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                backdrop-filter: blur(10px);
+                z-index: 10000;
+            `;
+            nextBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                let newIndex = currentImageIndex + 1;
+                if (newIndex >= images.length) newIndex = 0;
+                setActiveImage(newIndex);
+                img.src = images[currentImageIndex];
+            });
+            
+            viewer.appendChild(prevBtn);
+            viewer.appendChild(nextBtn);
+        }
+        
+        // Counter display
+        const counter = document.createElement('div');
+        counter.textContent = `${currentImageIndex + 1} / ${images.length}`;
+        counter.style.cssText = `
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            z-index: 10000;
+        `;
+        
+        viewer.appendChild(img);
+        viewer.appendChild(closeBtn);
+        viewer.appendChild(counter);
+        
+        // Close on escape key
+        document.addEventListener('keydown', function closeOnEscape(e) {
+            if (e.key === 'Escape') {
+                document.body.removeChild(viewer);
+                document.body.style.overflow = 'auto';
+                document.removeEventListener('keydown', closeOnEscape);
+            }
+        });
+        
+        // Close on background click
+        viewer.addEventListener('click', function(e) {
+            if (e.target === viewer) {
+                document.body.removeChild(viewer);
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        document.body.appendChild(viewer);
+        document.body.style.overflow = 'hidden';
+    }
+    
+    // Thumbnail navigation
+    if (thumbPrevBtn && thumbNextBtn && thumbnailTrack) {
+        const scrollAmount = 120;
+        
+        thumbPrevBtn.addEventListener('click', function() {
+            thumbnailTrack.scrollLeft -= scrollAmount;
+        });
+        
+        thumbNextBtn.addEventListener('click', function() {
+            thumbnailTrack.scrollLeft += scrollAmount;
+        });
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowLeft') {
+            let newIndex = currentImageIndex - 1;
+            if (newIndex < 0) newIndex = images.length - 1;
+            setActiveImage(newIndex);
+        } else if (e.key === 'ArrowRight') {
+            let newIndex = currentImageIndex + 1;
+            if (newIndex >= images.length) newIndex = 0;
+            setActiveImage(newIndex);
+        }
+    });
+    
+    // Touch/swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    if (mainImage) {
+        mainImage.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        
+        mainImage.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+    }
+    
+    function handleSwipe() {
+        const minSwipeDistance = 50;
+        const distance = touchStartX - touchEndX;
+        
+        if (Math.abs(distance) < minSwipeDistance) return;
+        
+        if (distance > 0) {
+            // Swipe left - next image
+            let newIndex = currentImageIndex + 1;
+            if (newIndex >= images.length) newIndex = 0;
+            setActiveImage(newIndex);
+        } else {
+            // Swipe right - previous image
+            let newIndex = currentImageIndex - 1;
+            if (newIndex < 0) newIndex = images.length - 1;
+            setActiveImage(newIndex);
+        }
+    }
+    
+    // Update thumbnail controls visibility based on content
+    function updateThumbnailControls() {
+        if (thumbnailTrack && thumbPrevBtn && thumbNextBtn) {
+            const hasOverflow = thumbnailTrack.scrollWidth > thumbnailTrack.clientWidth;
+            
+            if (hasOverflow) {
+                thumbPrevBtn.style.display = 'flex';
+                thumbNextBtn.style.display = 'flex';
+            } else {
+                thumbPrevBtn.style.display = 'none';
+                thumbNextBtn.style.display = 'none';
+            }
+        }
+    }
+    
+    // Check on load and resize
+    window.addEventListener('load', updateThumbnailControls);
+    window.addEventListener('resize', updateThumbnailControls);
+    
+    // Initial check
+    setTimeout(updateThumbnailControls, 100);
 });
 </script>
 

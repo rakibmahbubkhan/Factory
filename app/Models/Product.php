@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Faq;
 
 class Product extends Model
 {
@@ -12,6 +13,9 @@ class Product extends Model
     protected $fillable = [
         'product_name',
         'description',
+        'key_features',
+        'applications',
+        'benefits',
         'image1',
         'image2',
         'image3',
@@ -23,4 +27,9 @@ class Product extends Model
         'created_by',
         'updated_by',
     ];
+
+    public function faqs()
+    {
+        return $this->hasMany(Faq::class);
+    }
 }

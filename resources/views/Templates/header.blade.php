@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <title>{{ $company->company_name }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{{ $company->tagline ?? 'Leading company in industry' }}">
-    <meta name="keywords" content="{{ $company->keywords ?? 'company, services, solutions' }}">
-    
+    <meta name="description" content="{{ $company->tagline ?? 'Agricultural Machineries Manufacturer In Bangladesh' }}">
+    <meta name="keywords" content="{{ $company->keywords ?? 'Maize Thresher, Power Thresher, Tractor, ' . $company->company_name . ', Agricultural Machineries Manufacturer In Bangladesh, ভুট্টা মাড়াই মেশিন, ধান ভাঙ্গা মেশিন, ট্রাক্টর' }}">
+
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="{{ $company->company_name }}">
-    <meta property="og:description" content="{{ $company->tagline ?? 'Leading company in industry' }}">
+    <meta property="og:title" content="{{ $company->keywords ?? 'Maize Thresher, Power Thresher, Tractor, ' . $company->company_name . ', Agricultural Machineries Manufacturer In Bangladesh, ভুট্টা মাড়াই মেশিন, ধান ভাঙ্গা মেশিন, ট্রাক্টর' }}"">
+    <meta property="og:description" content="{{ $company->tagline ?? 'Agricultural Machineries Manufacturer In Bangladesh' }}">
     @if($company->logo)
         <meta property="og:image" content="{{ asset('storage/' . $company->logo) }}">
     @endif
@@ -30,6 +30,13 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Bootstrap 4 CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap 4 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Libraries -->
     <link href="{{ asset('assets/lib/animate/animate.min.css') }}" rel="stylesheet">

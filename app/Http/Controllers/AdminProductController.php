@@ -43,6 +43,9 @@ class AdminProductController extends Controller
         $data = $request->validate([
             'product_name'  => 'required|string',
             'description'   => 'string',
+            'key_features'  => 'nullable|string',
+            'applications'  => 'nullable|string',
+            'benefits'      => 'nullable|string',
             'price'         => 'numeric',
             'category'      => 'required|string',
             'contact'       => 'required|string',
@@ -52,6 +55,7 @@ class AdminProductController extends Controller
             'image3'        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'image4'        => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
+        
 
         // Handle each image upload
         foreach (['image1', 'image2', 'image3', 'image4'] as $imageField) {
@@ -62,7 +66,16 @@ class AdminProductController extends Controller
 
         $data['created_by'] = auth()->user()->id; // or however you're tracking the creator
 
-        Product::create($data);
+        $product = Product::create($data);
+
+        // Handle Dynamic FAQs
+        if ($request->has('faqs')) {
+            foreach ($request->faqs as $faq) {
+                if (!empty($faq['question']) && !empty($faq['answer'])) {
+                    $product->faqs()->create($faq);
+                }
+            }
+        }
 
         return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
@@ -72,6 +85,9 @@ class AdminProductController extends Controller
         $data = $request->validate([
             'product_name'  => 'required|string',
             'description'   => 'string',
+            'key_features'  => 'nullable|string',
+            'applications'  => 'nullable|string',
+            'benefits'      => 'nullable|string',
             'price'         => 'numeric',
             'category'      => 'required|string',
             'contact'       => 'required|string',
@@ -96,6 +112,15 @@ class AdminProductController extends Controller
         $data['updated_by'] = auth()->user()->id; // or however you're tracking the updater
 
         $product->update($data);
+
+        // Handle Dynamic FAQs
+        if ($request->has('faqs')) {
+            foreach ($request->faqs as $faq) {
+                if (!empty($faq['question']) && !empty($faq['answer'])) {
+                    $product->faqs()->create($faq);
+                }
+            }
+        }
 
         return redirect()->route('products.index')->with('success', 'Product updated successfully.');
     }
